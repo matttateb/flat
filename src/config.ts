@@ -14,6 +14,7 @@ const HTTPConfigSchema = z
   .object({
     axios_config: z.string().optional(),
     http_url: z.string(),
+    payload: z.string().optional(),
     authorization: z.string().optional(),
     mask: z.string().optional(), // string array of secrets or boolean
   })
@@ -38,6 +39,7 @@ export function getConfig(): Config {
     'axios_config',
     'downloaded_filename',
     'http_url',
+    'payload',
     'authorization',
     'mask',
     'sql_connstring',
@@ -64,8 +66,7 @@ export function getConfig(): Config {
     }
   } catch (error) {
     throw new Error(
-      `Invalid configuration!\nReceived: ${JSON.stringify(raw)}\nFailure:${
-        error.message
+      `Invalid configuration!\nReceived: ${JSON.stringify(raw)}\nFailure:${error.message
       }`
     )
   }

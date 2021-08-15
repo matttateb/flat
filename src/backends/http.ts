@@ -34,13 +34,23 @@ export default async function fetchHTTP(config: HTTPConfig): Promise<string> {
 
       response = await axios(combinedWithOtherConfigValues)
     } else {
-      response = await axios.get(config.http_url, {
-        method: 'get',
-        responseType: 'stream',
-        headers: {
-          ...authHeader,
-        },
-      })
+      if (config.payload) {
+        response = await axios.post(config.http_url, config.payload, {
+          method: 'post',
+          responseType: 'stream',
+          headers: {
+            ...authHeader,
+          },
+        })
+      } else {
+        response = await axios.get(config.http_url, {
+          method: 'get',
+          responseType: 'stream',
+          headers: {
+            ...authHeader,
+          },
+        })
+      }
     }
     const filename = config.downloaded_filename
     const writer = fs.createWriteStream(filename)

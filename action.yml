@@ -11,6 +11,9 @@ inputs:
   http_url:
     description: 'A URL containing data to fetch.'
     required: false
+  payload:
+    description: 'JSON string to send in a post request. Will force a POST request, rather than a get.'
+    required: false
   authorization:
     description: 'A string to send as a header for authorizing API requests.'
     required: false
